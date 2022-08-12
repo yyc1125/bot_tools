@@ -6,6 +6,8 @@ import com.yyc.bot_tools.service.profileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class profileServiceImpl implements profileService {
 
@@ -15,5 +17,10 @@ public class profileServiceImpl implements profileService {
     @Override
     public int addProfile(Profile profile) {
         return profileMapper.addProfile(profile);
+    }
+
+    @Override
+    public List<Profile> selectAllProfile() {
+        return profileMapper.selectAllProfile();
     }
 }

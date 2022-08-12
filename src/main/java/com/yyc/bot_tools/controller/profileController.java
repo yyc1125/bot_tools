@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @ResponseBody
 @Controller
 @RequestMapping("/profile")
@@ -16,7 +18,7 @@ public class profileController {
     @Autowired
     profileService profileService;
 
-    @GetMapping("billing")
+    @GetMapping("/addProfile")
     public String addProfile(Profile profile) {
         String result;
         int i = profileService.addProfile(profile);
@@ -25,8 +27,11 @@ public class profileController {
         } else {
             result = "fail";
         }
-
         return result;
     }
 
+    @GetMapping("/selectAllProfile")
+    public List<Profile> selectAllProfile() {
+        return profileService.selectAllProfile();
+    }
 }
