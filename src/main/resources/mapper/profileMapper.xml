@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyc.bot_tools.dao.profileMapper">
+    <insert id="addProfile" parameterType="com.yyc.bot_tools.entities.Profile">
+
+                    insert into profile(id,profile_name,fname,lname,address1,address2,state,country)
+                    values (${id},${profileName},${fname},${lname},${address1},${address2},${state},${country})
+
+    </insert>
+</mapper>
