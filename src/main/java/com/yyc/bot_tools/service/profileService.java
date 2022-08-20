@@ -8,5 +8,18 @@ public interface profileService {
 
     int addProfile(Profile profile);
 
-    List<Profile> selectAllProfile();
+    List<Profile> selectAllProfile(int pageNum , int pageSize);
+
+    int updateProfile(Profile profile);
+
+    Profile selectProfileById(Integer id);
+
+    int deleteProfileById(Integer id);
+
+    int countProfileNum();
+
+    int batchDeleteProfile(int[] idList);
+
+    int batchUpdateProfile(int[] idList,Profile profile);
+
 }

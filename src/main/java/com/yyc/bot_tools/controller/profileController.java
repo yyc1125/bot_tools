@@ -1,12 +1,12 @@
 package com.yyc.bot_tools.controller;
 
+import com.yyc.bot_tools.entities.Param;
 import com.yyc.bot_tools.entities.Profile;
+import com.yyc.bot_tools.entities.Result;
 import com.yyc.bot_tools.service.profileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,20 +18,67 @@ public class profileController {
     @Autowired
     profileService profileService;
 
-    @GetMapping("/addProfile")
-    public String addProfile(Profile profile) {
-        String result;
+    @PostMapping("/addProfile")
+    public Result addProfile(@RequestBody Profile profile) {
         int i = profileService.addProfile(profile);
         if (i > 0) {
-            result = "success";
+            return new Result(200,"添加成功");
         } else {
-            result = "fail";
+            return new Result(400,"添加失败");
         }
-        return result;
     }
 
     @GetMapping("/selectAllProfile")
-    public List<Profile> selectAllProfile() {
-        return profileService.selectAllProfile();
+    public Result selectAllProfile(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+        List<Profile> profiles = profileService.selectAllProfile(pageNum, pageSize);
+        int size = profileService.countProfileNum();
+        return new Result(profiles,size);
+    }
+
+    @PostMapping("/updateProfile")
+    public Result updateProfile(@RequestBody Profile profile){
+        int i = profileService.updateProfile(profile);
+        if (i > 0) {
+            return new Result(200,"更新成功");
+        } else {
+            return new Result(400,"更新失败");
+        }
+    }
+
+    @GetMapping("/selectProfileById")
+    public Result selectProfileById(@RequestParam("id") Integer id){
+        return new Result(profileService.selectProfileById(id));
+    }
+
+    @GetMapping("/deleteProfileById")
+    public Result deleteProfileById(@RequestParam("id") Integer id){
+        int i = profileService.deleteProfileById(id);
+        if (i > 0) {
+            return new Result(200,"删除成功");
+        } else {
+            return new Result(400,"删除失败");
+        }
+    }
+
+    @PostMapping("/batchDeleteProfile")
+    public Result batchDeleteProfile(@RequestBody int[] idList){
+        int i = profileService.batchDeleteProfile(idList);
+        if (i > 0) {
+            return new Result(200,"删除成功");
+        } else {
+            return new Result(400,"删除失败");
+        }
+    }
+
+    @PostMapping("/batchUpdateProfile")
+    public Result batchUpdateProfile(@RequestBody Param param){
+        int[] idList = param.getIdList();
+        Profile profile = param.getProfile();
+        int i = profileService.batchUpdateProfile(idList,profile);
+        if (i > 0) {
+            return new Result(200,"删除成功");
+        } else {
+            return new Result(400,"删除失败");
+        }
     }
 }
