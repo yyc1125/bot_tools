@@ -33,6 +33,8 @@ public class Profile {
 
     private String cardExp;
 
+    private String csv;
+
     @Override
     public String toString() {
         return "profile{" +

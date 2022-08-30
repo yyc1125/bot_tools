@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yyc.bot_tools.dao.profileMapper">
     <insert id="addProfile" parameterType="com.yyc.bot_tools.entities.Profile">
-            insert into profile(profile_name,fname,lname,address1,address2,state,country)
-            values (#{profileName},#{fname},#{lname},#{address1},#{address2},#{state},#{country})
+            insert into profile(profile_name,fname,lname,email,phone,address1,address2,zip,state,country)
+            values (#{profileName},#{fname},#{lname},#{email},#{phone},#{address1},#{address2},#{zip},#{state},#{country})
     </insert>
 
     <select id="selectAllProfile" resultType="com.yyc.bot_tools.entities.Profile">
@@ -14,7 +14,7 @@
 
     <update id="updateProfile" parameterType="com.yyc.bot_tools.entities.Profile">
             update profile
-            set profile_name = #{profileName} , fname = #{fname} , lname = #{lname} , address1 = #{address1} , address2 = #{address2} , state = #{state} , country = #{country}
+            set profile_name = #{profileName} , fname = #{fname} , lname = #{lname} , phone = #{phone}, email= #{email} , zip = #{zip} , address1 = #{address1} , address2 = #{address2} , state = #{state} , country = #{country}
             where id = #{id}
     </update>
 
