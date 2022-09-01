@@ -6,6 +6,7 @@ import com.yyc.bot_tools.entities.Result;
 import com.yyc.bot_tools.service.profileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -65,6 +66,7 @@ public class profileController {
     }
 
     @PostMapping("/batchDeleteProfile")
+    @Transactional
     public Result batchDeleteProfile(@RequestBody int[] idList) {
         int i = profileService.batchDeleteProfile(idList);
         if (i > 0) {
@@ -75,6 +77,7 @@ public class profileController {
     }
 
     @PostMapping("/batchUpdateProfile")
+    @Transactional
     public Result batchUpdateProfile(@RequestBody Param param) {
         int[] idList = param.getIdList();
         Profile profile = param.getProfile();

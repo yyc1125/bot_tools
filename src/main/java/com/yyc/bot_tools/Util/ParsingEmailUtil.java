@@ -69,7 +69,7 @@ public class ParsingEmailUtil {
 //        System.out.println("新邮件: " + folder.getNewMessageCount());
 
         // 获得收件箱中的邮件总数
-        log.warn("邮件总数: {}", folder.getMessageCount());
+      //  log.warn("邮件总数: {}", folder.getMessageCount());
 
         // 得到收件箱中的所有邮件,并解析
         Message[] messages = folder.getMessages();
@@ -96,14 +96,14 @@ public class ParsingEmailUtil {
         if (messages == null || messages.length < 1)
             throw new MessagingException("未找到要解析的邮件!");
         // 解析所有邮件
-        for (int i = 0, count = messages.length; i < count; i++) {
+        for (int i = messages.length - 1,count = 10; i >0 && count > 0; i--) {
             MimeMessage msg = (MimeMessage) messages[i];
             if ("Fwd: Foot Locker gift card for you".equals(getSubject(msg))){
 //                log.info("------------------解析第" + msg.getMessageNumber() + "封邮件-------------------- ");
 //                log.warn("主题: {}" , getSubject(msg));
 //                log.warn("发件人: {}" , getFrom(msg));
 //                log.warn("收件人：{}" , getReceiveAddress(msg, null));
-//                log.warn("发送时间：{}" , getSentDate(msg, null));
+                log.warn("发送时间：{}" , getSentDate(msg, null));
 //                log.warn("是否已读：{}" , isSeen(msg));
 //                log.warn("邮件优先级：{}" , getPriority(msg));
 //                log.warn("是否需要回执：{}" , isReplySign(msg));
@@ -132,8 +132,9 @@ public class ParsingEmailUtil {
                     jsonObject.put("pin",matcherPin.group(1));
                 }
                 arrayList.add(jsonObject);
+                count--;
 //                log.warn("邮件正文：{}" , content);
-                log.info("------------------第" + msg.getMessageNumber() + "封邮件解析结束-------------------- ");
+               // log.info("------------------第" + msg.getMessageNumber() + "封邮件解析结束-------------------- ");
             }
         }
         return arrayList;
